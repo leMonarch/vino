@@ -25,7 +25,7 @@ class Bouteille extends Modele {
 				$rows[] = $row;
 			}
 		}
-		var_dump($rows); die;
+		// var_dump($rows); die;
 		//Liste bouteille
 		return $rows;
 	}
