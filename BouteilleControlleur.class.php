@@ -60,8 +60,9 @@ class BouteilleControlleur
 	 */
 	public function postAction(Requete $requete)	// Modification
 	{
+		//commentaire va supprimer
 		if(!$this->valideAuthentification())
-		{
+		{//Bita
 			$this->retour['erreur'] = $this->erreur(401);
 			//conflit
 		}
