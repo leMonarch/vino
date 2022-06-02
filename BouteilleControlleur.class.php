@@ -60,7 +60,9 @@ class BouteilleControlleur
 	 */
 	public function postAction(Requete $requete)	// Modification
 	{
+
 		//commentaire va supprimer
+
 		if(!$this->valideAuthentification())
 		{//Bita
 			$this->retour['erreur'] = $this->erreur(401);
@@ -211,6 +213,9 @@ class BouteilleControlleur
 		return $res; 
 	}
 	
+
+
+
 	/**
 	 * Retourne les informations des bières de la db	 
 	 * @return Array Les informations sur toutes les bières
