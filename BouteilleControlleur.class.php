@@ -60,23 +60,23 @@ class BouteilleControlleur
 	 */
 	public function postAction(Requete $requete)	// Modification
 	{
-		if(!$this->valideAuthentification())
-		{
-			$this->retour['erreur'] = $this->erreur(401);
-		}
-		else {
+		//if(!$this->valideAuthentification())
+		//{
+		//	$this->retour['erreur'] = $this->erreur(401);
+		//}
+		//else {
 			if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
 			{
 				$id_biere = (int)$requete->url_elements[0];
 				
-				$this->retour["data"] = $this->modifBiere($id_biere, $requete->parametres);
+				$this->retour["data"] = $this->modifBouteille($id_biere, $requete->parametres);
 				
 			}
 			else{
 				$this->retour['erreur'] = $this->erreur(400);
 				unset($this->retour['data']);
 			}
-		}
+		//}
 		
 		
 		return $this->retour;
@@ -238,7 +238,7 @@ class BouteilleControlleur
 	 * @return int $id_biere Identifiant de la bière modifier
 	 * @access private
 	 */	
-	private function modifBiere($id_biere, $data)
+	private function modifBouteille($id_biere, $data)
 	{
 		$res = Array();
 		$oBiere = new Biere();
