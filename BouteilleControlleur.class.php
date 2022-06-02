@@ -60,9 +60,8 @@ class BouteilleControlleur
 	 */
 	public function postAction(Requete $requete)	// Modification
 	{
-
 		if(!$this->valideAuthentification())
-		{
+		{//Bita
 			$this->retour['erreur'] = $this->erreur(401);
 			//conflit
 		}
@@ -84,7 +83,53 @@ class BouteilleControlleur
 		
 		return $this->retour;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Dmitriy
+
+
+
+
+
+
+
 	/**
 	 * Méthode qui gère les action en PUT
 	 * @param Requete $requete
@@ -132,6 +177,70 @@ class BouteilleControlleur
 		}
 		return $this->retour;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+//Vsevolod
+
+
 	
 	/**
 	 * Méthode qui gère les action en DELETE
@@ -154,7 +263,7 @@ class BouteilleControlleur
 					switch($requete->url_elements[1]) 
 					{
 						case 'bouteille':
-							//**********************$this->boireQuantiteBouteille($id_vino,) */
+							//**********************$this->boireQuantiteBouteille($id_vino, $req) */
 							$this->retour["data"] = $this->ajouterUnCommentaire($id_biere, $requete->parametres);
 							break;
 						default:
@@ -194,6 +303,59 @@ class BouteilleControlleur
 		return $this->retour;
 		
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Bita
+
+
 	
 	
 	
