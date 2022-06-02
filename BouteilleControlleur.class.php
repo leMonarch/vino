@@ -60,14 +60,11 @@ class BouteilleControlleur
 	 */
 	public function postAction(Requete $requete)	// Modification
 	{
-		// c'ect ma parti
-		// c'ect ma parti  
-		// c'ect ma parti 
-		// c'ect ma parti
-		// c'ect ma parti  
-		
+
+		//commentaire va supprimer
+
 		if(!$this->valideAuthentification())
-		{
+		{//Bita
 			$this->retour['erreur'] = $this->erreur(401);
 			//conflit
 		}
