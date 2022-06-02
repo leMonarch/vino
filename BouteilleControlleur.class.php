@@ -69,6 +69,7 @@ class BouteilleControlleur
 		if(!$this->valideAuthentification())
 		{
 			$this->retour['erreur'] = $this->erreur(401);
+			//conflit
 		}
 		else {
 			if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
@@ -143,23 +144,55 @@ class BouteilleControlleur
 	 */
 	public function deleteAction(Requete $requete)
 	{
-		if(!$this->valideAuthentification())
-		{
-			$this->retour['erreur'] = $this->erreur(401);
-		}
-		else{
+		// if(!$this->valideAuthentification())
+		// {
+		// 	$this->retour['erreur'] = $this->erreur(401);
+		// }
+		// else{
 			if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
 			{
 				$id_biere = (int)$requete->url_elements[0];
 				
-				$this->retour["data"] = $this->effacerBiere($id_biere);
+				if(isset($requete->url_elements[1])) 
+				{
+					switch($requete->url_elements[1]) 
+					{
+						case 'bouteille':
+							//**********************$this->boireQuantiteBouteille($id_vino,) */
+							$this->retour["data"] = $this->ajouterUnCommentaire($id_biere, $requete->parametres);
+							break;
+						default:
+							$this->retour['erreur'] = $this->erreur(400);
+							unset($this->retour['data']);
+							break;
+					}
+				} 
+				else // Retourne les infos d'une bière
+				{
+					$this->retour['erreur'] = $this->erreur(400);
+					unset($this->retour['data']);
+				}
+			} 
+			else 
+			{
+				$this->retour["data"] = $this->ajouterUneBiere($requete->parametres);
 				
 			}
-			else{
-				$this->retour['erreur'] = $this->erreur(400);
-				unset($this->retour['data']);
-			}
-		}
+		// }
+		// }
+		// else{
+		// 	if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
+		// 	{
+		// 		$id_biere = (int)$requete->url_elements[0];
+				
+		// 		$this->retour["data"] = $this->effacerBiere($id_biere);
+				
+		// 	}
+		// 	else{
+		// 		$this->retour['erreur'] = $this->erreur(400);
+		// 		unset($this->retour['data']);
+		// 	}
+		// }
 		
 
 		return $this->retour;
