@@ -24,7 +24,7 @@ class BouteilleControlleur
 	{
 		if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
 		{
-			$id_biere = (int)$requete->url_elements[0];
+			$id_bouteille = (int)$requete->url_elements[0];
 			
 			if(isset($requete->url_elements[1])) 
 			{
@@ -41,7 +41,7 @@ class BouteilleControlleur
 			} 
 			else // Retourne les infos d'une bière
 			{
-				$this->retour["data"] = $this->getBiere($id_biere);
+				$this->retour["data"] = $this->getBouteille($id_bouteille);
 			}
 		} 
 		else 
@@ -61,28 +61,16 @@ class BouteilleControlleur
 	 */
 	public function postAction(Requete $requete)	// Modification
 	{
-		//commentaire va supprimer
-		if(!$this->valideAuthentification())
-		{//Bita
-			$this->retour['erreur'] = $this->erreur(401);
-			//conflit
-		}
-		else {
-			if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
-			{
-				$id_biere = (int)$requete->url_elements[0];
-				
-				$this->retour["data"] = $this->modifBiere($id_biere, $requete->parametres);
-				
-			}
-			else{
-				$this->retour['erreur'] = $this->erreur(400);
-				unset($this->retour['data']);
-			}
-		}
-		
-		
-		return $this->retour;
+        if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// l'id de la bouteille 
+        {
+            $id = (int)$requete->url_elements[0];
+            
+            $this->retour["data"] = $this->modifBouteille($id, $requete->parametres);
+        }
+        else{
+            $this->retour['erreur'] = $this->erreur(400);
+            unset($this->retour['data']);
+        }
 	}
 
 
@@ -436,7 +424,7 @@ class BouteilleControlleur
 	 * @return int $id_biere Identifiant de la bière modifier
 	 * @access private
 	 */	
-	private function modifBiere($id_biere, $data)
+	private function modifBouteille($id_biere, $data)
 	{
 		$res = Array();
 		$oBiere = new Biere();
@@ -581,7 +569,7 @@ class BouteilleControlleur
 	{
 		$res = Array();
 		$oVino = new Bouteille();
-		$res = $oVino->getListeBouteille();
+		$res = $oVino->getListeBouteilleCellier();
 		
 		return $res; 
 	}
