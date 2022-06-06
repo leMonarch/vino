@@ -63,14 +63,14 @@ class BouteilleControlleur
 	{
         if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// l'id de la bouteille 
         {
-            $id = (int)$requete->url_elements[0];
-            
-            $this->retour["data"] = $this->modifBouteille($id, $requete->parametres);
+            //$id = (int)$requete->url_elements[0];
+            $this->retour["data"] = $this->modifBouteille($requete->parametres);
         }
         else{
             $this->retour['erreur'] = $this->erreur(400);
             unset($this->retour['data']);
         }
+        return $this->retour;
 	}
 
 
@@ -418,18 +418,18 @@ class BouteilleControlleur
 	
 
 	/**
-	 * Modifie les informations de la bière $id_biere
-	 * @param int $id_biere Identifiant de la bière
-	 * @param Array Les informations de la bière
-	 * @return int $id_biere Identifiant de la bière modifier
+	 * Modifie les informations de la bouteille
+	 * 
+	 * @param Array Les informations de la bouteille
+	 * @return int $id Identifiant de la bouteille dans le cellier à modifier
 	 * @access private
 	 */	
-	private function modifBouteille($id_biere, $data)
+	private function modifBouteille($data)
 	{
 		$res = Array();
-		$oBiere = new Biere();
+		$oBouteille = new Bouteille();
 		
-		$res = $oBiere->modifierBiere($id_biere, $data);
+		$res = $oBouteille->modifBouteille($data);
 		return $res; 
 	}
 	

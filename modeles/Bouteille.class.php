@@ -174,28 +174,33 @@ class Bouteille extends Modele {
     /**
 	 * Cette méthode modifie la bouteille
 	 * @access public
-	 * @param int $id Identifiant de la bière
+	 * @param int $id Identifiant de la bouteille
 	 * @param Array $param Paramètres et valeur à modifier 
 	 * @return int id de la bouteille ou 0 en cas d'échec
 	 */
-	public function modifBouteille($id, $param)	
+	public function modifBouteille($param)	
 	{
 		$aSet = Array();
 		$resQuery = false;
-		foreach ($param as $cle => $valeur) {
-			$aSet[] = ($cle . "= '".$valeur. "'");
-		}
-		if(count($aSet) > 0)
-		{
-			$query = "Update vino__cellier SET ";
-			$query .= join(", ", $aSet);
-			
-			$query .= (" WHERE id = ". $id); 
-			$resQuery = $this->_db->query($query);
-			
-		}
-		//echo $query;
-		return ($resQuery ? $id : 0);
+        $id = $param['id'];
+        if (is_array($param) || is_object($param)) {
+            foreach ($param as $cle => $valeur) {
+                $aSet[] = ($cle . "= '".$valeur. "'");
+            }
+            if(count($aSet) > 0)
+            {
+                $query = "Update vino__cellier SET ";
+                $query .= join(", ", $aSet);
+                
+                $query .= (" WHERE id = ". $id); 
+                $resQuery = $this->_db->query($query);
+                
+            }
+            //echo $query;
+            return ($resQuery ? $id : 0);
+        } else {
+            echo "Une erreur s'est produite.";
+        }
 	}
 }
 
