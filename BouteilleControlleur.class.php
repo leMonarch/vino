@@ -26,13 +26,18 @@ class BouteilleControlleur
 		{
             if(is_numeric($requete->url_elements[0])) 
             {
-                switch($requete->url_elements[0]) 
-                {
-                    default:
-                        $this->retour['erreur'] = $this->erreur(400);
-                        unset($this->retour['data']);
-                        break;
-                }
+				$id_bouteille = $requete->url_elements[0];
+                switch($requete->url_elements[1]) 
+					{
+						case 'quantite':
+							$this->retour["data"] = $requete->url_elements;
+							$this->ajouterQuantiteBouteille($id_bouteille);
+							break;
+						default:
+							$this->retour['erreur'] = $this->erreur(400);
+							unset($this->retour['data']);
+							break;
+					}
             } 
             else
             {
@@ -51,6 +56,7 @@ class BouteilleControlleur
 		else 
 		{
 			$this->retour["data"] = $this->getBouteilles();
+			
 			
 		}
 
@@ -138,17 +144,14 @@ class BouteilleControlleur
 		//else{
 			if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
 			{
-				$id_biere = (int)$requete->url_elements[0];
+				$id_bouteille = (int)$requete->url_elements[0];
 				
 				if(isset($requete->url_elements[1])) 
 				{
 					switch($requete->url_elements[1]) 
 					{
-						case 'commentaire':
-							$this->retour["data"] = $this->ajouterUnCommentaire($id_biere, $requete->parametres);
-							break;
-						case 'note':
-							$this->retour["data"] = $this->ajouterUneNote($id_biere, $requete->parametres);
+						case 'quantite':
+							$this->retour["data"] = $this->ajouterQuantiteBouteille($id_bouteille);
 							break;
 						default:
 							$this->retour['erreur'] = $this->erreur(400);
@@ -172,62 +175,15 @@ class BouteilleControlleur
 	}
 
 
+	public function ajouterQuantiteBouteille($id){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		$oBouteille = new Bouteille;
+		// $oBouteille->modifierQuantiteBouteilleCellier($id_cellier,$id_bouteille,$id_user,1);
+		$oBouteille->modifierQuantiteBouteilleCellier($id, 1);
+		// $data['quantite'] = $oBouteille->getQuantite($id_cellier,$id_bouteille,$id_user); 
+		
+		return $this->getBouteilles();
+	}
 
 
 
@@ -242,22 +198,16 @@ class BouteilleControlleur
 	 */
 	public function deleteAction(Requete $requete)
 	{
-		// if(!$this->valideAuthentification())
-		// {
-		// 	$this->retour['erreur'] = $this->erreur(401);
-		// }
-		// else{
-			if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
+		if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
 			{
-				$id_biere = (int)$requete->url_elements[0];
+				$id_bouteille = (int)$requete->url_elements[0];
 				
 				if(isset($requete->url_elements[1])) 
 				{
 					switch($requete->url_elements[1]) 
 					{
-						case 'bouteille':
-							//**********************$this->boireQuantiteBouteille($id_vino, $req) */
-							$this->retour["data"] = $this->ajouterUnCommentaire($id_biere, $requete->parametres);
+						case 'quantite':
+							$this->retour["data"] = $this->boireQuantiteBouteille($id_bouteille);
 							break;
 						default:
 							$this->retour['erreur'] = $this->erreur(400);
@@ -273,33 +223,23 @@ class BouteilleControlleur
 			} 
 			else 
 			{
-				$this->retour["data"] = $this->ajouterUneBiere($requete->parametres);
+				// $this->retour["data"] = $this->effacerUneBouteille($requete->parametres);
 				
 			}
-		// }
-		// }
-		// else{
-		// 	if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
-		// 	{
-		// 		$id_biere = (int)$requete->url_elements[0];
-				
-		// 		$this->retour["data"] = $this->effacerBiere($id_biere);
-				
-		// 	}
-		// 	else{
-		// 		$this->retour['erreur'] = $this->erreur(400);
-		// 		unset($this->retour['data']);
-		// 	}
-		// }
-		
-
+		//}
 		return $this->retour;
-		
 	}
 
 
+	public function boireQuantiteBouteille($id){
 
-
+		$oBouteille = new Bouteille;
+		// $oBouteille->modifierQuantiteBouteilleCellier($id_cellier,$id_bouteille,$id_user,1);
+		$oBouteille->modifierQuantiteBouteilleCellier($id, -1);
+		// $data['quantite'] = $oBouteille->getQuantite($id_cellier,$id_bouteille,$id_user); 
+		
+		return $this->getBouteilles();
+	}
 
 
 
@@ -376,7 +316,7 @@ class BouteilleControlleur
 	{
 		$res = Array();
 		$oBiere = new Bouteille();
-		$res = $oBiere->getListeBouteille();
+		// $res = $oBiere->getListeBouteille();
 		
 		return $res; 
 	}
