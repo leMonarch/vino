@@ -11,13 +11,12 @@
  * 
  */
 class Bouteille extends Modele {
-	const TABLE = 'vino__bouteille';
-    
-	public function getListeBouteille()
+
+	public function getBouteillesInserer()
 	{
 		
 		$rows = Array();
-		$res = $this->_db->query('Select * from '. self::TABLE);
+		$res = $this->_db->query('Select * from vino__bouteille');
 		if($res->num_rows)
 		{
 			while($row = $res->fetch_assoc())
@@ -132,21 +131,18 @@ class Bouteille extends Modele {
 	 */
 	public function ajouterBouteilleCellier($data)
 	{
-		//TODO : Valider les données.
-		//var_dump($data);	
-		
-		$requete = "INSERT INTO vino__cellier(id_bouteille,date_achat,garde_jusqua,notes,prix,quantite,millesime) VALUES (".
-		"'".$data->id_bouteille."',".
-		"'".$data->date_achat."',".
-		"'".$data->garde_jusqua."',".
-		"'".$data->notes."',".
-		"'".$data->prix."',".
-		"'".$data->quantite."',".
-		"'".$data->millesime."')";
+        if (is_array($data) || is_object($data)) 
+        {    
+            if(extract($data) > 0)
+            {
+                $requete = "INSERT INTO vino__cellier(`id_bouteille`, `date_achat`, `garde_jusqua`, `notes`, `prix`, `quantite`, `millesime`) VALUES ('".$id_bouteille. "','". $date_achat. "','". $garde_jusqua. "','".$notes."','". $prix."','". $quantite."','". $millesime."')";
 
-        $res = $this->_db->query($requete);
-        
-		return $res;
+                $this->_db->query($requete);
+            }
+            return ($this->_db->insert_id ? $this->_db->insert_id : $requete);
+        } else {
+            echo "Une erreur s'est produite.";
+        }
 	}
 	
 	

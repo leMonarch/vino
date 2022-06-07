@@ -22,27 +22,31 @@ class BouteilleControlleur
 	 */
 	public function getAction(Requete $requete)
 	{
-		if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
+		if(isset($requete->url_elements[0])) 
 		{
-			$id_bouteille = (int)$requete->url_elements[0];
-			
-			if(isset($requete->url_elements[1])) 
-			{
-				switch($requete->url_elements[1]) 
-				{
-					// case 'commentaire': *************************************COMMENTAIRE VINO
-					// 	$this->retour["data"] = $this->getCommentaire($id_biere);
-					// 	break;
-					default:
-						$this->retour['erreur'] = $this->erreur(400);
-						unset($this->retour['data']);
-						break;
-				}
-			} 
-			else // Retourne les infos d'une bière
-			{
-				$this->retour["data"] = $this->getBouteille($id_bouteille);
-			}
+            if(is_numeric($requete->url_elements[0])) 
+            {
+                switch($requete->url_elements[0]) 
+                {
+                    default:
+                        $this->retour['erreur'] = $this->erreur(400);
+                        unset($this->retour['data']);
+                        break;
+                }
+            } 
+            else
+            {
+                switch($requete->url_elements[0]) 
+                    {
+                        case 'bouteilles':
+                            $this->retour["data"] = $this->getBouteillesInserer();
+                            break;
+                        default:
+                            $this->retour['erreur'] = $this->erreur(400);
+                            unset($this->retour['data']);
+                            break;
+                    }
+            }
 		} 
 		else 
 		{
@@ -127,11 +131,11 @@ class BouteilleControlleur
 	public function putAction(Requete $requete)		//ajout ou modification
 	{
 	
-		if(!$this->valideAuthentification())
-		{
-			$this->retour['erreur'] = $this->erreur(401);
-		}
-		else{
+		//if(!$this->valideAuthentification())
+		//{
+		//	$this->retour['erreur'] = $this->erreur(401);
+		//}
+		//else{
 			if(isset($requete->url_elements[0]) && is_numeric($requete->url_elements[0]))	// Normalement l'id de la biere 
 			{
 				$id_biere = (int)$requete->url_elements[0];
@@ -160,10 +164,10 @@ class BouteilleControlleur
 			} 
 			else 
 			{
-				$this->retour["data"] = $this->ajouterUneBiere($requete->parametres);
+				$this->retour["data"] = $this->ajouterUneBouteille($requete->parametres);
 				
 			}
-		}
+		//}
 		return $this->retour;
 	}
 
@@ -368,11 +372,11 @@ class BouteilleControlleur
 	 * @return Array Les informations sur toutes les bières
 	 * @access private
 	 */	
-	private function getListeBiere()
+	private function getListeBouteille()
 	{
 		$res = Array();
-		$oBiere = new Biere();
-		$res = $oBiere->getListe();
+		$oBiere = new Bouteille();
+		$res = $oBiere->getListeBouteille();
 		
 		return $res; 
 	}
@@ -449,16 +453,16 @@ class BouteilleControlleur
 	}
 
 	/**
-	 * Ajouter une bière 
-	 * @param Array Les informations de la bière
-	 * @return int $id_biere Identifiant de la nouvelle bière
+	 * Ajouter une bouteille 
+	 * @param Array Les informations de la bouteille
+	 * @return int $id_biere Identifiant de la nouvelle bouteille
 	 * @access private
 	 */	
-	private function ajouterUneBiere($data)
+	private function ajouterUneBouteille($data)
 	{
 		$res = Array();
-		$oBiere = new Biere();
-		$res = $oBiere->ajouterBiere($data);
+		$oBouteille = new Bouteille();
+		$res = $oBouteille->ajouterBouteilleCellier($data);
 		return $res; 
 	}
 
@@ -574,4 +578,41 @@ class BouteilleControlleur
 		return $res; 
 	}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Vsevolod - Dmitriy
+    	/**
+	 * Retourne les informations des bouteilles de la db	 
+	 * @return Array Les informations sur toutes les bouteilles
+	 * @access private
+	 */	
+	private function getBouteillesInserer()
+	{
+		$res = Array();
+		$oBouteille = new Bouteille();
+		$res = $oBouteille->getBouteillesInserer();
+		
+		return $res; 
+	}
 }
