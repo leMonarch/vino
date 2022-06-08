@@ -1,10 +1,9 @@
 <?php
-//TEST
 /**
  * Class BiereControleur
  * Controleur de la ressource Biere
  * 
- * @author Jonathan Martel
+ * @author Equipe de 4
  * @version 1.1
  * @update 2019-11-11
  * @license MIT
