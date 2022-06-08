@@ -13,7 +13,7 @@
 class Bouteille extends Modele {
 
     /**
-	 * Cette méthode annonce une liste des bouteilles importées de la SAQ disponibles pour ajouter au cellier.
+	 * Cette méthode annonce une liste des bouteilles importées de la SAQ disponibles pour ajouter au cellier
 	 * @access public
 	 * @return Array $data Tableau des données représentants la liste des bouteilles.
 	 */
