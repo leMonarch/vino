@@ -3,7 +3,7 @@
  * Class Modele
  * Les modèles doivent hérités de cette classe.
  * 
- * @author Jonathan Martel
+ * @author Equipe de 4
  * @version 1.0
  * @update 2013-12-11
  * @license MIT
